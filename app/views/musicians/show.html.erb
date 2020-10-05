@@ -1,0 +1,104 @@
+<%= render 'navbar'%>
+
+<div class="container-fluid">
+
+<div class="row">
+  <div class="col-sm-6">
+<div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills">
+    
+    </ul>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Name: <%=@musician.name%></h5>
+    <p class="card-text">
+    <img src='<%=@musician.img_url%>'  max-width= "100vw" height="200" class="border border-dark rounded-circle">
+
+
+
+
+
+<p>Instrument: <%=@musician.instrument%></p>
+
+<p>Location: <%=@musician.location%></p>
+
+<p>Bio:</p>
+<p><%=@musician.bio%></p>
+
+<p> Years Experience: <%=@musician.years_experience%> </p>
+
+<p> Number of followers: <%= @musician.followers.count%></p>
+
+<% if @musician.id == @current_user.id %>
+ 
+<%else%>
+    <% if @bool_check == true %>
+    <p> You follow this person </p>
+    <%=button_to 'unfollow', {:controller => :musicians, :action => 'unfollow', :id => @musician.id}, :method => :get%>
+    <%else %>
+    <%=button_to 'follow', {:controller => :musicians, :action => 'follow', :id => @musician.id}, :method => :get%>
+    <%end%>
+<%end%>
+
+
+<p>Genres:</p>
+<% @musician.genres.uniq.each do |genre| %>
+<li><%= genre.name%></li>
+<%end%>
+
+<br/>
+<% if @musician.id == @current_user.id %>
+<%=button_to 'Edit Profile', {:controller => :musicians, :action => 'edit', :id => @musician.id}, :method => :get%>
+<%end%>
+<br/>
+<%=button_to 'Return to Index', {:controller => :musicians, :action => 'index', :id => @musician.id}, :method => :get%>
+
+    </p>
+  
+  </div>
+</div>
+</div>
+
+
+
+  <div class="col-sm-6">
+<div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills">
+      
+      
+     
+    </ul>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">comments</h5>
+    <p class="card-text"><%= render 'comments'%></p>
+    
+  </div>
+</div>
+</div>
+</div>
+
+<div class="container-fluid">
+<div class="row justify-content-md-center">
+<h2 style= "font-family: Boston">Followers: </h2>
+</div>
+
+<div class="row">
+    <% @musician.followers.each do |follow|%>
+  <div class="col-sm-4">
+    <div class="card text-black border-secondary mb-3" style="width: 18rem;">
+        <img src='<%= follow.img_url%>' max-width= "100vw" max-height="200" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title"><%=follow.name%></h5>
+            <p class="card-text"> <%=follow.bio%></p>
+            <a href="/musicians/<%=follow.id%>" class="btn btn-primary">View Profile</a>
+        </div>
+    </div>
+    <br/>
+    </div> 
+    <% end %>
+  </div>
+
+</div>

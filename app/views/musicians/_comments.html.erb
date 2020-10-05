@@ -1,0 +1,44 @@
+
+<%=form_with url: comments_path do |f|%>
+<%=f.text_area :content%>
+<%=f.hidden_field :commentee_id, :value => @musician.id%>
+<%=f.hidden_field :commenter_id, :value => @current_user.id %>
+<br/>
+<%=f.submit "Post Comment"%>
+<%end%>
+<br/>
+<br/>
+
+
+<div class="card text-center">
+<%@comments.each do |comment|%>
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills">
+      <li class="nav-item">
+        <a><%= link_to comment.commenter.name, musician_path(comment.commenter)%>, at: <%=comment.created_at%></a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"><%= comment.content%> </h5>
+    <p class="card-text">
+    
+<br/>likes: <%=comment.likes%> 
+<br/>
+<%=form_with url: like_comment_path(comment) do |f|%>
+<%=f.hidden_field :commentee_id, :value => @musician.id%>
+<%=f.hidden_field :commenter_id, :value => @current_user.id %>
+<%=f.submit "Like"%>
+<%end%>
+    </p>
+  </div>
+  <%end%>
+</div>
+
+
+
+
+
+
+
+

@@ -1,0 +1,34 @@
+<%= render 'navbar'%>
+
+<!DOCTYPE html>
+<html>
+<body style="background-color:white;">
+
+<div class="container-fluid">
+<div class="row justify-content-md-center">
+<h2 style= "font-family: Boston" "color: #668F66">Musicians in your area: <%=@current_user.location%> </h2>
+</div>
+
+<div class="row">
+    <% @local_musicians.each do |mus|%>
+  <div class="col-sm-4">
+    <div class="card text-black border-secondary mb-3" style="width: 18rem;">
+        <img src='<%= mus.img_url%>' max-width= "100vw" max-height="200" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title"><%=mus.name%></h5>
+            <p class="card-text"> <%=mus.bio%></p>
+            <a href="/musicians/<%=mus.id%>" class="btn btn-primary" >View Profile</a>
+        </div>
+    </div>
+    <br/>
+    </div> 
+    <% end %>
+  </div>
+
+
+
+<div class="row justify-content-md-center">
+
+<%= button_to 'logout', {:controller => :sessions, :action => 'destroy', :id => @musician.id}, :method => :delete%>
+
+</div>

@@ -1,0 +1,41 @@
+
+<div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills">
+      <li class="nav-item">
+        <a class="nav-link active" href="/musicians/new">New Account</a>
+      </li>
+      
+
+    </ul>
+  </div>
+  <div class="card-body">
+  <img src="/assets/Logo_test.png" width="200" height="200" class="d-inline-block align-top" alt="" loading="lazy" >
+  <br/>
+  <br/>
+    <h5 class="card-title">Sign in:</h5>
+    <p class="card-text">
+    <%= form_with model: @musician, :url => url_for(:controller => 'sessions', :action => 'create') do |f|%>
+    <%= f.label :username%>
+    <%= f.text_field :username%>
+    <br/>
+    <br/>
+    <%= f.label :password%>
+    <%= f.password_field :password%>
+    <br/>
+    <br/>
+    <%= f.submit "Sign in" %>
+    <%end%></p>
+    
+  </div>
+</div>
+
+
+
+<div class="container-fluid">
+<div class="row justify-content-md-center">
+<% flash.each do |key, v|%>
+<li style='color: red'> <%= v %> </li>
+<%end%>
+ </div>
+</div>

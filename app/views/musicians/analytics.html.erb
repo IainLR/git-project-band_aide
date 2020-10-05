@@ -1,0 +1,83 @@
+<%= render 'navbar'%>
+
+<div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills">
+      
+     
+      
+    </ul>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">sitewide stats:</h5>
+    <p class="card-text">
+    
+    most followers: <%= link_to @most_popular.name, musician_path(@most_popular)%><br/>
+    least followers: <%= link_to @least_pop.name, musician_path(@least_pop)%><br/>
+    most active follower: <%= link_to @most_active.name, musician_path(@most_active)%><br/>
+    least active follower: <%= link_to @least_active.name, musician_path(@least_active)%><br/>
+    most popular instrument: <%= @popular_instrument%><br/>
+    most popular location: <%= @pop_location%><br/>
+    most versitile: <%= link_to @versitile.name, musician_path(@versitile)%><br/>
+    <br/><strong>city stats:</strong> <br/>
+    most popular instrument in <%=@current_location%>:  <%=@pop_inst_location%><br/>
+    most represented genre in <%=@current_location%>:  <%=@genre_by_loc%><br/>
+    least represented genre in <%=@current_location%>:  <%=@least_genre_by_loc%><br/>
+   
+
+    <%=form_with url: spec_analytics_path do |f|%>
+<%= f.label :location %>
+<%= f.select(:location, @locations) %>
+<br/>
+<%=f.submit "Submit"%>
+<%end%></p>
+  </div>
+</div>
+
+<div class="container-fluid">
+<div class="row justify-content-md-center">
+<h2 style= "font-family: Boston">Most Recent Accounts: </h2>
+</div>
+
+
+<div class="row">
+    <% @most_recent.each do |mus|%>
+  <div class="col-sm-4">
+    <div class="card text-black border-secondary mb-3" style="width: 18rem;">
+        <img src='<%= mus.img_url%>' max-width= "100vw" max-height="200" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title"><%=mus.name%></h5>
+            <p class="card-text"> <%=mus.bio%></p>
+            <a href="/musicians/<%=mus.id%>" class="btn btn-primary">View Profile</a>
+        </div>
+    </div>
+    <br/>
+    </div> 
+    <% end %>
+  </div>
+
+
+
+
+
+
+<div class="container-fluid">
+<div class="row justify-content-md-center">
+<h2 style= "font-family: Boston">Musicians in <%=@current_location%>: </h2>
+</div>
+<div class="row">
+    <% @musicians_by_location.each do |mus|%>
+  <div class="col-sm-4">
+    <div class="card text-black border-secondary mb-3" style="width: 18rem;">
+        <img src='<%= mus.img_url%>' max-width= "100vw" max-height="200" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title"><%=mus.name%></h5>
+            <p class="card-text"> <%=mus.bio%></p>
+            <a href="/musicians/<%=mus.id%>" class="btn btn-primary">View Profile</a>
+        </div>
+    </div>
+    <br/>
+    </div> 
+    <% end %>
+  </div>
+  

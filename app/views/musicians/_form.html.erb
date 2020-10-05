@@ -1,0 +1,70 @@
+<div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills">
+      <li class="nav-item">
+        <a class="nav-link active" href="/login">Already a Member?</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Account Information:</h5>
+    <p class="card-text">
+    <% flash.each do |key, v|%>
+<li style='color: red'> <%= v %> </li>
+<%end%>
+    <%= form_with model: @musician do  | f | %>
+<%= f.label :username %>
+<%= f.text_field :username %>
+<br>
+<br>
+<%= f.label :password %>
+<%= f.password_field :password %>
+<br>
+<br>
+<%= f.label :confirm_password %>
+<%= f.password_field :confirm_password %>
+<br>
+<br>
+<%= f.label :img_url %>
+<%= f.text_field :img_url %>
+<br>
+<br>
+<%= f.label :name %>
+<%= f.text_field :name %>
+<br>
+<br>
+<%= f.label :location %>
+<%= f.select(:location, @locations) %>
+<br>
+<br>
+<%= f.label :instrument %>
+<%= f.select(:instrument, @instruments)%>
+<br>
+<br>
+<%= f.label :bio %>
+<%= f.text_area :bio %>
+<br>
+<br>
+<%= f.label :years_experience %>
+<%= f.number_field :years_experience %>
+<br>
+<br>
+<p>Genre:</P>
+<% @genres.each do |genre| %>
+  <input type="checkbox" id="<%= genre.name %>" name="musician[genres][]" value="<%= genre.id %>" <%='checked' if @musician.genres.include?(genre) %>>
+  <%= genre.name %>
+<% end %>
+<br>
+<br>
+<%= f.submit %>
+<% end %>
+<br/>
+<br/>
+<% flash.each do |key, v|%>
+<li style='color: red'> <%= v %> </li>
+<%end%>
+    </p>
+   
+  </div>
+</div>
+
